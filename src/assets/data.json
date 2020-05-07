@@ -1,0 +1,174 @@
+[
+    {
+        "usuario": {
+            "user": "name",
+            "email":"email",
+            "password": "pasword"
+        }
+    },
+
+    {
+        "sala": "sala 1",
+        "pelicula":"nombre",
+        "filas":{
+            "fila1":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4",
+                        "asiento5":"asiento 5",
+                        "asiento6":"asiento 6",
+                        "asiento7":"asiento 7",
+                        "asiento8":"asiento 8"
+
+                    }
+                ]
+            },
+
+            "fila2":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4",
+                        "asiento5":"asiento 5",
+                        "asiento6":"asiento 6",
+                        "asiento7":"asiento 7",
+                        "asiento8":"asiento 8"
+                    }
+                ]
+            },
+
+
+            "fila3":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4",
+                        "asiento5":"asiento 5",
+                        "asiento6":"asiento 6",
+                        "asiento7":"asiento 7",
+                        "asiento8":"asiento 8"
+                    }
+                ]
+            }
+
+            
+        }
+            
+        
+    },
+
+
+
+    {
+        "sala": "sala 2",
+        "pelicula":"nombre",
+        "filas":{
+            "fila1":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4"
+
+                    }
+                ]
+            },
+
+            "fila2":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4"
+                    }
+                ]
+            },
+
+
+            "fila3":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4"
+                    }
+                ]
+            }
+
+            
+        }
+    },
+
+    {
+        "sala": "sala 3",
+        "pelicula":"nombre",
+        "filas":{
+            "fila1":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4",
+                        "asiento5":"asiento 5",
+                        "asiento6":"asiento 6"
+
+                    }
+                ]
+            },
+
+            "fila2":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4",
+                        "asiento5":"asiento 5",
+                        "asiento6":"asiento 6"
+                    }
+                ]
+            },
+
+
+            "fila3":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4",
+                        "asiento5":"asiento 5",
+                        "asiento6":"asiento 6"
+                    }
+                ]
+            },
+
+            "fila4":{
+                "asientos":[
+                    {
+                        "asiento1":"asiento 1",
+                        "asiento2":"asiento 2",
+                        "asiento3":"asiento 3",
+                        "asiento4":"asiento 4",
+                        "asiento5":"asiento 5",
+                        "asiento6":"asiento 6"
+                    }
+                ]
+            }
+  
+        }
+
+    }
+ 
+]
