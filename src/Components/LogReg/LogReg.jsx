@@ -46,7 +46,7 @@ function DropdownMenu(props) {
                     <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter"/>
                     <span for="subscribeNews">Recuerdame</span>
                 </div>
-                <span className="enter">Log In</span>
+                <span className="enter">LOG IN</span>
                 <span className="reg" onClick={() => setLogin(2)}>Crear una cuenta</span>
             </div>
         );

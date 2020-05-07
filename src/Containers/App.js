@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import LogReg from '../Components/LogReg'
+import LogReg from '../Components/LogReg/LogReg'
 
 function App() {
   return (
