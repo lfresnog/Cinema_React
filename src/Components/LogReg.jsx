@@ -46,8 +46,8 @@ function DropdownMenu(props) {
                     <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter"/>
                     <span for="subscribeNews">Recuerdame</span>
                 </div>
-                <span>Log In</span>
-                <span onClick={() => setLogin(2)}>Crear una cuenta</span>
+                <span className="enter">Log In</span>
+                <span className="reg" onClick={() => setLogin(2)}>Crear una cuenta</span>
             </div>
         );
     }
@@ -59,7 +59,7 @@ function DropdownMenu(props) {
                 <input className="mail" id="mail" placeholder="Correo electrónico" />
                 <input className="pwd" id="pwd" placeholder="Contraseña" />
                 <input className="pwd" id="pwd2" placeholder="Repite Contraseña" />
-                <span>Registrarse</span>
+                <span className="enter">Registrarse</span>
             </div>  
         );
     }
