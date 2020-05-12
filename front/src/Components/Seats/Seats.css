@@ -1,0 +1,53 @@
+:root {
+    --bg:  #242526;
+    --bg-accent: #484a4d;
+    --text-color: #dadce1;
+    --box-width: 500px;
+    --border: 1px solid #474a4d;
+    --border-radius: 8px;
+    --speed: 500ms; 
+  }
+
+  img{
+      width: 56px;
+      display: flex;
+      justify-content: center;
+  }
+
+  h3{
+    margin: 20px;
+    border: 2px solid green;
+    background: none;
+    display: block;
+    text-align: center;
+    padding: 12px 20px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+  }
+
+    .seats-box{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    }
+
+  .seats {
+      margin: 5px;
+      width: var(--box-width);
+      height: 450px;
+      border: solid black;
+      border-radius: var(--border-radius);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+  }
+
+  .seat {
+      width: calc(var(--box-width)*0.08);
+      height: calc(var(--box-width)*0.08);
+      display: flex;
+      object-fit: contain;
+  }

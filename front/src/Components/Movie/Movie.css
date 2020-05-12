@@ -1,0 +1,35 @@
+:root {
+    --bg:  #242526;
+    --bg-accent: #484a4d;
+    --text-color: #dadce1;
+    --nav-size-width: 200px;
+    --nav-size-height: 60px;
+    --border: 1px solid #474a4d;
+    --border-radius: 8px;
+    --speed: 500ms; 
+  }
+
+.movie{
+    border: solid black;
+    border-radius: var(--border-radius);
+    width: 250px;
+    height: 350px;
+}
+
+.info{
+    width: 600px;
+    height: 400px;
+    border: solid black;
+    transform: translate(80%,-50%);
+}
+
+.select{
+    width: 600px;
+    height: 400px;
+    border: solid black;
+    transform: translate(80%,-50%);
+}
+
+.buy{
+    width: 20%;
+}
