@@ -1,7 +1,7 @@
 # Cinema_React
 
 
-# Frontend:
+# Frontend
 
 
 API: The movie DataBase, to use films and actors data -> https://api.themoviedb.org/3/discover/movie
@@ -15,7 +15,7 @@ We use to develop it Axios and we create it with reactJS.
 
 
 
-# Backend:
+# Backend
 
 
 To develop it we have used GraphQLServer and to save datas we have used MongoClient
