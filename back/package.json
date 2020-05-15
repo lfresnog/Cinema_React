@@ -17,12 +17,11 @@
     "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
-    "babel-polyfill": "^6.26.0",
     "nodemon": "^1.19.4"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.8.7",
     "graphql-yoga": "^1.18.3",
-    "mongodb": "^3.5.7",
-    "uuid": "^3.4.0"
+    "mongodb": "^3.5.7"
   }
 }

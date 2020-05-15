@@ -2,7 +2,7 @@ import { MongoClient, ObjectID } from "mongodb";
 import { GraphQLServer } from "graphql-yoga";
 import *as uuid from 'uuid';
 
-import "babel-polyfill";
+import "@babel/polyfill";
 
 //"mongodb+srv://sergio:123pez@cluster0-dikpx.gcp.mongodb.net/test?retryWrites=true&w=majority"
 
@@ -32,37 +32,59 @@ const connectToDb = async function(usr, pwd, url) {
  * Starts GraphQL server, with MongoDB Client in context Object
  * @param {client: MongoClinet} context The context for GraphQL Server -> MongoDB Client
  */
+
+
+
 const runGraphQLServer = function(context) {
   const typeDefs = `
+
     type Query{
-
      getUser(name:String!,token:ID!):User
-     
-    }
 
+     getId:[Int]
+     getFechas(idFilm:Int!):[Fecha]
+     getSalas(idFilm:Int!,fecha:String!,hora:String!):Cine
+
+    }
     type Mutation{
 
-      addUser(name: String!, password: String!):User!
-      removeUser(name:String!,token:ID!):User
-      login(name:String!,password:String!):User!
-      logout(name:String!,token:ID!):User!
+      updateSala(idFilm:Int!,fecha:String!,hora:String!,butacas:[Int]!):Cine
+
+      addUser(name: String!, mail:String!, password: String!):User
+      login(mail:String!,password:String!):User
+      logout(name:String!,token:ID!):User
     }
 
     type User{
-      _id: ID!
-      name: String!
-      password: String!
-      token:ID!
+
       
+      name: String!
+      mail:String!
+      token:ID!
+      error:String!
+      
+    }
+
+    type Fecha{
+
+      fecha: String!
+      hora: String!
+
+    }
+
+    type Cine{
+
+      idFilm: Int!
+      fecha: String!
+      hora: String!
+      asientos: [Int]!
+
     }
 
   `;
 
-  //el id de la factura es el id del titular
-
   const resolvers = {
 
-    
 
     Query: {
  
@@ -73,15 +95,6 @@ const runGraphQLServer = function(context) {
         const db = client.db("Cinema");
         const collection = db.collection("users");
 
-        //buscar el usuario por username
-        //obtener su token y comparar por el que se ha añadido
-        //devolver lista de facturas por id, comparandolo por el id del usuario
-        //las facturas tienen el id del user
-
-        // const result = await collection.find({}).toArray();
-        // return result;
-
-        
 
         const exist = await collection.findOne({name:name});
 
@@ -92,49 +105,223 @@ const runGraphQLServer = function(context) {
 
       },
       
+
+      getId: async (parent, args, ctx, info) => {
+
+        const { client } = ctx;
+        const db = client.db("Cinema");
+        const collection = db.collection("cine");
+        
+        let exist = await collection.find({}).toArray();
+        let idFilms = [];
+
+        exist.forEach(element => {
+          
+          idFilms.push(element.idFilm);
+
+        });
+        
+        return idFilms;
+      },
+
+      getFechas:async (parent, args, ctx, info) => {
+
+
+        const { idFilm } = args;
+        const { client } = ctx;
+        const db = client.db("Cinema");
+        const collection = db.collection("cine");
+        
+        let exist = await collection.findOne({idFilm:idFilm});
+
+        let fechas = [];
+     
+        
+        exist.salas.forEach(elem =>{
+
+          elem.fechas.forEach(el =>{
+
+            fechas.push(el); 
+
+          });
+
+        });
+
+        return fechas;
+
+      },
+
+      getSalas: async (parent, args, ctx, info) => {
+
+      
+        const { idFilm, fecha,hora } = args;
+        const { client } = ctx;
+        const db = client.db("Cinema");
+        const collection = db.collection("cine");
+        
+        let exist = await collection.findOne({idFilm:idFilm});
+
+        let sala = [];
+        exist.salas.forEach(elem =>{
+
+            elem.fechas.forEach(el =>{
+
+              if(el.fecha == fecha && el.hora == hora){
+
+                sala = el.asientos;
+
+              }
+              
+            });
+
+        });
+
+        return {
+          
+          idFilm,
+          fecha,
+          hora,
+          asientos:sala
+        };
+      },
     },
 
+  
     Mutation: {
+
+      updateSala:async (parent, args, ctx, info) => {
+
+        const { idFilm, fecha,hora,butacas } = args;
+        const {client} = ctx;
+        const db = client.db("Cinema");
+
+        const collection = db.collection("cine");
+
+        let exist = await collection.findOne({idFilm:idFilm});
+
+        let salas;
+
+        if(exist){
+
+          await collection.remove({idFilm:{$eq:idFilm}},false);
+
+          salas = exist.salas;
+
+          salas.forEach(elem =>{
+
+            elem.fechas.forEach(el =>{
+
+              if(el.fecha == fecha && el.hora == hora){
+
+                console.log(butacas);
+                el.asientos = butacas;
+
+              }
+              
+            });
+
+          });
+        
+        }
+
+
+        await collection.insertOne({idFilm,salas});
+
+        return{
+
+          idFilm,
+          fecha,
+          hora,
+          asientos:butacas
+
+        };
+
+      },
 
       addUser: async (parent, args, ctx, info) => {
 
-        const { name, password } = args;
+        const { name, mail,password } = args;
         const { client } = ctx;
         const db = client.db("Cinema");
         const collection = db.collection("users");
 
-        const exist = await collection.findOne({name:name});
+        const exist = await collection.findOne({mail:mail});
 
         if(!exist){
 
           const token = uuid.v4();
 
-          const result = await collection.insertOne({ name, password ,token});
+          const result = await collection.insertOne({ name, mail,password ,token});
+
+          setTimeout( () => {
+            usersCollection.updateOne({"mail":mail}, {$set: {token:undefined}});
+          }, 3000000)
 
           return {
             name,
-            password,
+            mail,
             token,
-            _id: result.ops[0]._id
+            error:""
           };
+
+
+        }else{
+
+          return {
+            name: "",
+            mail:"",
+            token:"",
+            error:"El correo usuario ya esta en uso"
+
+          };
+
         }
+
+
 
       },
     
       login: async (parent, args, ctx, info) => {
 
-        const {name, password} = args;
+        const {mail, password} = args;
         const {client} = ctx;
         const db = client.db("Cinema");
 
         const collection = db.collection("users");
-        const usuario1 = await collection.findOne({name: name, password: password});
+        const usuario1 = await collection.findOne({mail: mail, password: password});
         if(!usuario1){
-          throw new Error(`Usuario o contrasena incorrectos`)
+          
+          return {
+            
+            
+            name: "",
+            mail:"",
+            token:"",
+            error:"Usuario o Contraseña incorrecta"
+
+          };
+
         }else{
-          await collection.updateOne({"name": name }, { $set: { "token": uuid.v4() }});
+
+          await collection.updateOne({"mail": mail }, { $set: { "token": uuid.v4() }});
+          setTimeout( () => {
+            usersCollection.updateOne({"mail":mail}, {$set: {token:undefined}});
+          }, 3000000)
+
+          const user =  await collection.findOne({mail: mail});
+
+          return {
+              
+            
+            name: user.name,
+            mail: user.mail,
+            token:user.token,
+            error:""
+
+          };
+
         }  
-        return await collection.findOne({name: name});
+
       },
 
       logout: async (parent, args, ctx, info) => {
@@ -152,31 +339,6 @@ const runGraphQLServer = function(context) {
         return await collection.findOne({name: name});
 
       },
-
-
-      removeUser: async (parent, args, ctx, info) => {
-
-        //removeUser(name:String!,token:ID!):Titulares
-        const {name, token} = args;
-        const { client } = ctx;
-        const db = client.db("Cinema");
-        let collection = db.collection("users");
-        const exist = await collection.findOne({name:name});
-
-        
-        if(exist.token == token){
-        
-        await collection.deleteOne({name:{$eq:name}}); 
-
-        collection = db.collection("facturas");
-        await collection.remove({idFactura:{$eq:exist._id}},false);
-
-        return exist;
-
-        }
-
-      },
-
       
 
     }
@@ -184,7 +346,7 @@ const runGraphQLServer = function(context) {
 
   const server = new GraphQLServer({ typeDefs, resolvers, context });
   const options = {
-    port: 8001
+    port: 8002
   };
 
   try {

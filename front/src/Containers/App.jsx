@@ -1,17 +1,21 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './App.css';
+import { ApolloProvider } from '@apollo/client';
+import client from '../Components/Client/Client'
 import LogReg from '../Components/LogReg/LogReg'
-import Movie from '../Components/Movie/Movie'
+import Movies from '../Components/Movies/Movies'
 
 function App() {
+  const [name, setName] = useState(null);
   return (
-    <div>
-      <div><LogReg/></div>
-      <div className='movies'>
-        <Movie/>
+    <ApolloProvider client={client}>
+    <div className='app'>
+      <div><LogReg setName={setName}/></div>
+      <div className='billboard'>
+        {name===1?null:<Movies/>}
       </div>
     </div>
-    
+    </ApolloProvider>
   );
 }
 

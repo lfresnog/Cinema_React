@@ -1,0 +1,108 @@
+:root {
+    --bg:  #242526;
+    --bg-accent: #484a4d;
+    --text-color: #dadce1;
+    --nav-size-width: 200px;
+    --nav-size-height: 60px;
+    --border: 1px solid #474a4d;
+    --border-radius: 8px;
+    --speed: 500ms; 
+}
+
+.poster{
+    height: 500px;
+    width: 350px;
+    border-radius: 8px;
+    margin: 25px;
+}
+
+.poster1{
+    height:370px;
+    width: 280px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.image{
+    height: 150px;
+    width: 120px;
+}
+
+.arrow{
+    height: 50px;
+}
+
+.arrow:hover{
+    cursor: pointer;
+}
+
+.movie{
+    border-radius: 8px;
+}
+
+.movie:hover{
+    cursor: pointer;
+}
+
+.movies{
+    display: flex;
+    width: fit-content;
+    border: 10px;
+    align-items: center;
+}
+
+.info{
+    width: 80%;
+    display:flex;
+    justify-content: space-between;
+}
+.select{
+    width: 600px;
+    height: 400px;
+    border: solid black;
+    transform: translate(80%,-50%);
+}
+
+.buy{
+    width: 20%;
+}
+
+.title{
+    width:55%;
+    margin:15px;
+}
+
+.visual{
+    width:30%;
+    margin-top: 20px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.answer{
+    display: flex;
+    justify-content: center;
+}
+
+.total{
+    display: flex;
+    justify-content: center;
+}
+
+.characters{
+    margin-top: 25px;
+    display: flex;
+}
+
+.character{
+    width: 150px;
+    margin: 5px;
+}
+ .name{
+     width: 90%;
+ }
+
+ .character-name{
+     width: 90%;
+ }
