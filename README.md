@@ -11,4 +11,6 @@ URL: YouTube, to view trailers-> https://www.youtube.com/embed/
 
 
 
-We use to develop it with Axios and we create it with reactJS
+We use to develop it Axios and we create it with reactJS.
+
+
