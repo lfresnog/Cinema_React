@@ -18,6 +18,10 @@ We use to develop it Axios and we create it with reactJS.
 # Backend:
 
 
+To develop it we have used GraphQLServer and to save datas we have used MongoClient
+
+
+
 Query:
 
 
