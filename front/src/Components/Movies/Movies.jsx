@@ -3,21 +3,35 @@ import './Movies.css';
 import axios from 'axios';
 import arrow from '../../Assets/arrow.svg'
 import Seats from '../Seats/Seats'
-
+import { useMutation, useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
 function Movies() {
-  const [movs,setMovs] = useState([550,2770,384018]);
+  
   const [info, setInfo] = useState({
     overview:null,
     title: null,
     poster: null,
     date: null
   })
+
+  const [movs,setMovs] = useState([]);
+
+  const GET_ID = gql`
+  query getId {
+
+    getId
+
+  }`;
+
+  const { loading, data, error } = useQuery(GET_ID);
+
   const [char, setChar] = useState([]);
   const [trailer, setTrailer] = useState(null);
   const [page,setPage] = useState(0);
 
   const onFilm = (mov) => {
-    axios.get(`https://api.themoviedb.org/3/movie/${movs[mov]}?api_key=b17961536d16cd4464e388a84acb25d4&language=es-es`)
+
+    axios.get(`https://api.themoviedb.org/3/movie/${data.getId[mov]}?api_key=b17961536d16cd4464e388a84acb25d4&language=es-es`)
         .then(response => {
           console.log(Error);
           setInfo({
@@ -27,7 +41,7 @@ function Movies() {
             date: response.data.date
           });
     })
-    axios.get(`https://api.themoviedb.org/3/movie/${movs[mov]}/casts?api_key=b17961536d16cd4464e388a84acb25d4&language=es-es`)
+    axios.get(`https://api.themoviedb.org/3/movie/${data.getId[mov]}/casts?api_key=b17961536d16cd4464e388a84acb25d4&language=es-es`)
         .then(response => {
           console.log(Error);
           console.log(URL)
@@ -41,40 +55,49 @@ function Movies() {
           const test = results.slice(0,5);
           setChar(test);
     })
-    axios.get(`https://api.themoviedb.org/3/movie/${movs[mov]}/videos?api_key=b17961536d16cd4464e388a84acb25d4&language=es-es`)
+    axios.get(`https://api.themoviedb.org/3/movie/${data.getId[mov]}/videos?api_key=b17961536d16cd4464e388a84acb25d4&language=es-es`)
         .then(response => {
           console.log(Error);
           setTrailer(response.data.results[0].key);
     }) 
   }
 
+  if (loading) {
+    
+    return <div>loading...</div>;
 
-  return (
-      <div className='answer'>
-        {page===0?
-        <div className='movies'>
-          {movs.map((elem,index)=> {return <Movie key={index} id={elem} index={index} setPage={setPage} onFilm={onFilm}/>})}
-        </div>:page===1?
-        <div className='total'>
-          <img className='arrow' src={arrow} alt="Error" onClick={()=>setPage(0)}/>
-          <div className='info'>
-          <div className='visual'>
-            <img className='poster1' src= {`http://image.tmdb.org/t/p/original//${info.poster}`} alt="Error"/>
-            <iframe src={`https://www.youtube.com/embed/${trailer}?fs=0`} width="440" height="280" frameborder="0"></iframe>
+  }else{
+
+    
+  
+    return (
+        <div className='answer'>
+          {page===0?
+          <div className='movies'>
+            {data.getId.map((elem,index)=> {return <Movie key={index} id={elem} index={index} setPage={setPage} onFilm={onFilm}/>})}
+          </div>:page===1?
+          <div className='total'>
+            <img className='arrow' src={arrow} alt="Error" onClick={()=>setPage(0)}/>
+            <div className='info'>
+            <div className='visual'>
+              <img className='poster1' src= {`http://image.tmdb.org/t/p/original//${info.poster}`} alt="Error"/>
+              <iframe src={`https://www.youtube.com/embed/${trailer}?fs=0`} width="440" height="280" frameborder="0"></iframe>
+            </div>
+            <div className='title'>
+              <h2>{info.title}</h2>
+              <span>{info.overview}</span>
+              <div className='characters'>
+                {char.map((elem, index)=>{return <Character key={index} char={elem}/>})}
+            </div>
+            </div>
           </div>
-          <div className='title'>
-            <h2>{info.title}</h2>
-            <span>{info.overview}</span>
-            <div className='characters'>
-              {char.map((elem, index)=>{return <Character key={index} char={elem}/>})}
-          </div>
-          </div>
+          
+          
+          </div>:null}
         </div>
-        
-         
-        </div>:null}
-      </div>
-  );
+    );
+
+  }
 }
 
 function Movie(props) {
