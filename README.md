@@ -44,7 +44,7 @@ Mutation:
     }
 
 
-we have also created a Type User to create de user data and Type fech to create the movie date deatails:
+We have also created a Type User to create de user data and Type fech to create the movie date deatails:
 
 
 
@@ -67,6 +67,19 @@ we have also created a Type User to create de user data and Type fech to create 
     }
 
 
+Other type that we use is Type Cine, to create our cine details:
+
+
+
+
+    type Cine{
+
+      idFilm: Int!
+      fecha: String!
+      hora: String!
+      asientos: [Int]!
+
+    }
 
 
 
